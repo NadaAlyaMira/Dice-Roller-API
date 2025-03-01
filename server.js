@@ -7,6 +7,11 @@ const PORT = process.env.PORT || 8080;
 // Allow all origins (temporarily for testing)
 app.use(cors());
 
+// Root route
+app.get("/", (req, res) => {
+    res.send("Welcome to the Dice Roller API!");
+});
+
 // RESTful API to roll a dice
 app.get("/roll", (req, res) => {
     const diceRoll = Math.floor(Math.random() * 6) + 1;
