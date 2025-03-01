@@ -6,21 +6,30 @@
     <title>Dice Roller API Test</title>
 </head>
 <body>
-<h1>Dice Roller API Test</h1>
-<button id="rollButton">Roll Dice</button>
-<p id="result">Result: </p>
+    <h1>Dice Roller API Test</h1>
+    <button id="rollButton">Roll Dice</button>
+    <p>Result: <span id="result">Waiting...</span></p>
 
-<script>
-    document.getElementById('rollButton').addEventListener('click', () => {
-        fetch('https://your-api-url/roll')  // Replace with your actual API URL
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('result').innerText = 'Result: ' + data.result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-</script>
+    <script>
+        // Function to call the /roll API
+        async function rollDice() {
+            try {
+                const response = await fetch("https://dicerollerapiman-ccc6f0bea6hjhrf2.uaenorth-01.azurewebsites.net/roll/");
+                if (!response.ok) {
+                    throw new Error('Error: Unable to get a dice roll');
+                }
+                const data = await response.json();
+                document.getElementById("result").innerText = data.result;
+            } catch (error) {
+                document.getElementById("result").innerText = error.message;
+            }
+        }
+
+        // Call API automatically on page load to "wake up" the server
+        window.onload = rollDice;  // This ensures the API is called when the page loads.
+
+        // Add event listener for the "Roll Dice" button
+        document.getElementById("rollButton").addEventListener("click", rollDice);
+    </script>
 </body>
 </html>
