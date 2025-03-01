@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller API Test</title>
+</head>
+<body>
+<h1>Dice Roller API Test</h1>
+<button id="rollButton">Roll Dice</button>
+<p id="result">Result: </p>
+
+<script>
+    document.getElementById('rollButton').addEventListener('click', () => {
+        fetch('https://your-api-url/roll')  // Replace with your actual API URL
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Result: ' + data.result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+</body>
+</html>
